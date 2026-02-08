@@ -1,16 +1,13 @@
 # 📰 News Article Summarizer & Categorizer Agent
     
-# Project Overview
+## Project Overview
     
-     This project implements a high-performance AI agent capable of fetching news articles, summarizing their content, and
-      categorizing them. It showcases a **Hybrid Workload Pattern** that efficiently combines **concurrent I/O-bound tasks** (simulat
-      network calls) with **parallel CPU-bound tasks** (simulated article analysis) to maximize resource utilization and significantl
-      reduce overall processing time.
-    
-     The agent is designed with modularity, type safety, and testability in mind, utilizing modern Python features and best practice
-      for AI engineering.
+This project implements a high-performance AI agent capable of fetching news articles, summarizing their content, and
+categorizing them. It showcases a **Hybrid Workload Pattern** that efficiently combines **concurrent I/O-bound tasks** (simulat network calls) with **parallel CPU-bound tasks** (simulated article analysis) to maximize resource utilization and significantl
+reduce overall processing time.
+The agent is designed with modularity, type safety, and testability in mind, utilizing modern Python features and best practice for AI engineering.
       
-# ✨ Key Features
+## ✨ Key Features
     
   - **Hybrid Workload Pattern:** Demonstrates the efficient overlap of asynchronous I/O with multiprocessing for CPU-bound tasks
   -   **Concurrent I/O:** Utilizes `asyncio` for non-blocking simulation of fetching multiple articles simultaneously.
@@ -24,14 +21,14 @@
       environment variables.
   -   **Performance Comparison:** Includes a built-in comparison to sequential processing to highlight speedup.
    
-# 🚀 Getting Started
+## 🚀 Getting Started
    
-  # Prerequisites
+  ### Prerequisites
    
     -   Python 3.9+
     -   `uv` (recommended package installer and virtual environment manager)
    
-  # Installation
+  ### Installation
    
     **Clone the repository:**
       git clone git@github.com:abdullahfazal969-alt/News-agent.git
@@ -46,7 +43,7 @@
      **Install dependencies:**
       uv add pydantic pydantic-settings pytest
    
-  # Configuration
+  ### Configuration
    
     Create a `.env` file in the root of the project to customize agent settings (optional; defaults are provided in
      `src/config/models.py`):
@@ -56,9 +53,9 @@
   MOCK_ANALYSIS_TIME=1.0      # Simulated CPU processing time per article (seconds)
   API_TIMEOUT=30.0            # Timeout for external API calls
    
-  # 🏃 Usage
+  ## 🏃 Usage
    
-  # Run the Agent
+  ### Run the Agent
    
     To run the agent and see the hybrid workload in action:
   uv run src/main.py
@@ -66,6 +63,6 @@
     You will see output indicating the fetching and processing stages, along with a final report and a performance comparison agains
      sequential execution.
    
-  # Run Tests
+  ### Run Tests
    
     To execute the integration tests that verify the agent's functionality and performance:
