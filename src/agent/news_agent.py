@@ -1,23 +1,32 @@
 import asyncio
 import time
-from typing import List, Type, Dict, Any
+from typing import Any, Dict, List, Type
 
 from src.agent.base_agent import BaseAgent, ReportType
 from src.agent.strategies import ResearchStrategy, SummarizeCategorizeStrategy
-from src.config.models import AgentConfig, NewsAgentReport, RawArticleData, ArticleAnalysisResult
+from src.config.models import (
+    AgentConfig,
+    ArticleAnalysisResult,
+    NewsAgentReport,
+    RawArticleData,
+)
 from src.tools.mock_news_api import async_mock_fetch_article_content
-from src.utils.executor_manager import ExecutorManager # ProcessPoolExecutor is managed here
+from src.utils.executor_manager import (
+    ExecutorManager,
+)  # ProcessPoolExecutor is managed here
+
 
 class NewsArticleAgent(BaseAgent[NewsAgentReport]):
     """
     An AI agent that fetches news articles, summarizes and categorizes them
     using a hybrid I/O-bound (asyncio) and CPU-bound (ProcessPoolExecutor) workload pattern.
     """
+
     def __init__(
         self,
         agent_config: AgentConfig,
         executor_manager: ExecutorManager,
-        strategy_type: Type[ResearchStrategy] = SummarizeCategorizeStrategy
+        strategy_type: Type[ResearchStrategy] = SummarizeCategorizeStrategy,
     ):
         self.agent_config = agent_config
         self.executor_manager = executor_manager
@@ -30,8 +39,7 @@ class NewsArticleAgent(BaseAgent[NewsAgentReport]):
         using the hybrid workload pattern.
         """
         start_time = time.perf_counter()
-        print(f"
---- Agent: Starting research for {len(urls)} articles ---")
+        print(f"--- Agent: Starting research for {len(urls)} articles ---")
 
         # Step 1: Concurrently fetch all articles (I/O-bound)
         # We launch all fetch tasks simultaneously using asyncio.gather
@@ -50,7 +58,9 @@ class NewsArticleAgent(BaseAgent[NewsAgentReport]):
             for raw_article in all_raw_articles
         ]
         # Wait for all processing tasks (running in the executor) to complete.
-        all_analysis_results: List[ArticleAnalysisResult] = await asyncio.gather(*process_tasks)
+        all_analysis_results: List[ArticleAnalysisResult] = await asyncio.gather(
+            *process_tasks
+        )
 
         end_time = time.perf_counter()
         total_duration = end_time - start_time
@@ -60,7 +70,16 @@ class NewsArticleAgent(BaseAgent[NewsAgentReport]):
         return NewsAgentReport(
             results=all_analysis_results,
             total_articles_processed=len(urls),
-            total_time_taken=total_duration
+            total_time_taken=total_duration,
+            total_duration=total_duration,
+        )
+
+        print(f"--- Agent: Finished research in {total_duration:.2f} seconds ---")
+
+        return NewsAgentReport(
+            results=all_analysis_results,
+            total_articles_processed=len(urls),
+            total_time_taken=total_duration,
         )
 
     async def shutdown(self) -> None:
@@ -71,4 +90,3 @@ class NewsArticleAgent(BaseAgent[NewsAgentReport]):
         print("Agent: Shutting down.")
         # No additional shutdown logic needed here, as executor_manager handles its pool.
         pass
-
