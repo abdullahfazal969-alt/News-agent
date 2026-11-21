@@ -1,4 +1,6 @@
 # 📰 News Article Summarizer & Categorizer Agent
+
+> How it was built and why: [case study on my portfolio](https://abdullahfazal.net/work/news-agent)
     
 ## Project Overview
     
@@ -66,3 +68,13 @@ The agent is designed with modularity, type safety, and testability in mind, uti
   ### Run Tests
    
     To execute the integration tests that verify the agent's functionality and performance:
+
+---
+
+## Author
+
+**Abdullah Fazal**, computer engineering student at UET Taxila, curious about how things work.
+
+- Portfolio: [abdullahfazal.net](https://abdullahfazal.net)
+- LinkedIn: [abdullah-fazal-2985a2298](https://www.linkedin.com/in/abdullah-fazal-2985a2298/)
+- CV: [abdullahfazal.net/cv](https://abdullahfazal.net/cv)
